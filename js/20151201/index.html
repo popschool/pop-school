@@ -1,0 +1,79 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <title>Veille technologique du matin</title>
+    <script>
+        // Liste des élèves
+        var arr = ["BULTEZ Jordan", "BRUCHET Daniel", "CAPRON Axel", "CAUVEZ Thimoty", "DELISSE Manon", "DELPIERRE Michel", "FLORE Antoine", "FONTAINE François", "GIACCO Raphael", "GROUX Baptiste", "HURBAIN Jessy", "MACIEJEWSKI Jessica", "MARTINS Julie","MATEYAK Paul", "MONSERGENT François", "POURRIOT Quentin", "PROVO Kilian", "SCRUFARI Pietro", "TOMCZAK Kévin", "TOURNEUR Tristan", "VERGNE Victor", "VINCENT Simon", "ZAREMBA Victor", "LI Jin Hao"
+        ];
+        // Variables utilisées pour le numéro tiré et pour garder le résultat
+        var numeroTire;
+        var ancienNumero;
+
+        // Fonction qui remplit la liste des élèves
+        function remplirListe() {
+            for(var i=0; i < arr.length; i++) {
+                document.getElementById("names").innerHTML += "<li id=\"li-" + i + "\">" + arr[i] + "</li>";
+            }
+        }
+
+        // Fonction qui donne un chiffre
+        function getRandom(min,max) {
+            return Math.floor(Math.random() * (max - min) + min);
+        }
+
+        // Fonction qui tire au sort un élève, vérifie s’il n’a pas été tiré juste avant, affiche le résultat
+        function tirageAuSort() {
+            // on tire au hasard quelqu’un dans la liste
+            numeroTire = getRandom(0,arr.length);
+            // on vérifie si le numéro n’est pas le précédent, on donne une seconde chance dans ce cas
+            while (numeroTire == ancienNumero) {
+                numeroTire = getRandom(0,arr.length);
+            }
+            // on affiche le nom
+            document.getElementById("winner").innerHTML = arr[numeroTire];
+            // Couleur de fond rouge pour l’élève tiré
+            document.getElementById("li-" + numeroTire).style += "background: red;";
+            // On remet orange à l’élève tiré juste avant
+            document.getElementById("li-" + ancienNumero).style += "background: orange;";
+            // le numéro a été tiré. On sauvegarde le résultat pour la prochaine fois
+            ancienNumero = numeroTire;
+        }
+    </script>
+    <style>
+        #winner {
+            margin: 15px auto;
+            width: 550px;
+            height: 3em;
+            background: #88FF88;
+            border: solid 5px #44CC44;
+            color: #116611;
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+            line-height: 3em;
+            border-radius: 5px;
+        }
+
+        button { margin: 5px auto; display: block; height: 45px; width: 165px; }
+
+        li {
+            border: 1px solid #222;
+            padding: 5px 15px;
+            margin: 10px 20px;
+            float: left;
+            list-style: none;
+            background-color: orange;
+            color: #444;
+        }
+    </style>
+</head>
+<body onload="remplirListe();">
+    <div id="winner"></div>
+    <button onclick="tirageAuSort();">Tirer au sort</button>
+    <div>
+        <ul id="names">
+        </ul>
+    </div>
+</body>
+</html>

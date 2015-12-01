@@ -1,0 +1,46 @@
+<doctype html>
+<html>
+<head>
+</head>
+<body>
+<table>
+    <tr>
+        <th>name</th><td id="name"></td>
+    </tr>
+    <tr>
+        <th>quest</th><td id="quest"></td>
+    </tr>
+    <tr>
+        <th>favorite colour</th><td id="colour"></td>
+    </tr>
+</table>
+<label>Name:</label><input id="inputName" type="text">
+<label>Quest:</label><input id="inputQuest" type="text">
+<label>Colour:</label><input id="inputColour" type="text">
+<button onclick="javascript:ask();">Ask me !</button>
+<script language="javascript">
+    function insertText(domId,text,colour) {
+        colour = colour || "brown";
+        document.getElementById(domId).style = "color: " + colour;
+        document.getElementById(domId).innerHTML = text;
+    }
+    function ask () {
+        var name = document.getElementById("inputName").value;
+        document.getElementById("name").innerHTML = name;
+        var quest = document.getElementById("inputQuest").value;
+        document.getElementById("quest").innerHTML = quest;
+        var colour = document.getElementById("inputColour").value;
+        switch (colour) {
+            case "blue":
+            case "green":
+            case "red":
+                insertText("colour",colour,colour);
+                break;
+            default:
+                insertText("colour",colour);
+                break;
+        }
+    }
+</script>
+</body>
+</html>
