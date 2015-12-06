@@ -1,0 +1,98 @@
+body {
+    background-image: url("../img/jogofutsal.jpg");
+    background-size: cover;
+    text-align:center;
+    font-size: 1.4em;
+    font-family: sans;
+    color: #123;
+}
+
+/* Elements organisation */
+ul { list-style: none; width:80%; margin: auto auto; text-align: center; }
+ul li { display: inline; }
+
+input { padding: 0.1em 0.5em; }
+
+/* equipe page styling */
+.equipe {
+    width: 80%;
+    margin: 5% auto;
+    text-align:center;
+}
+
+.equipe input {
+    background-color: rgba(255,255,255,0.8);
+    border: solid 2px black;
+    font-size: 1.6em;
+    margin: 0.7em 2em;
+}
+
+.joueur {
+    background-color: rgba(255,255,255,0.5);
+    border: solid 3px #123;
+    padding: 0.7em 2em;
+    width: 100%;
+}
+
+.joueur input {
+    background-color: rgba(255,255,255,0.5);
+    border: solid 2px black;
+    font-size: inherit;
+    width:15%;
+    margin: 0.2em 1%;
+}
+
+/* matches pages styling */
+.journee {
+    float: left;
+    margin: 2% 1%;
+    width: 31%;
+}
+
+.journee div {
+    width: 50%;
+    margin: 0.7em auto;
+    background-color: rgba(255,255,255,0.5);
+    border: solid 3px #123;
+    padding: 0.6em 2em;
+}
+
+.journee label {
+    display: block;
+    margin-bottom: 0.4em;
+}
+
+.journee input {
+    text-align: center;
+}
+
+.journee input:invalid {
+    background-color: rgba(255,122,122,0.8);
+}
+
+/* classiment styling */
+tr:nth-child(odd) {
+    background-color: rgba(255,255,255,0.8);
+}
+
+tr:nth-child(even) {
+    background-color: rgba(205,205,205,0.8);
+}
+
+th, td {
+    border: solid 1px #123;
+    min-width: 5%;
+    padding: 0.2em;
+}
+
+/* General purpose colors and font styling */
+h1,h2,h3,h4,h5,h6 {
+    text-transform: uppercase;
+    background-color: rgba(255,255,255,0.8);
+    border: solid 3px #123;
+    padding: 0.5em 1em;
+}
+a {
+    color: #9999FF;
+}
+
