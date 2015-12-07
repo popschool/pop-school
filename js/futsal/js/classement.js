@@ -32,10 +32,12 @@ function afficherClassement(nbEquipes) {
     // application de l’algo round-robin pour avoir la liste des matchs
     for (var j=0; j < nbEquipes-1; j++) {
         for (var i=0; i < nbEquipes/2; i++) {
-            // on récupère le n° de l’adversaire selon l’alog round-robin
-            var idAdversaire = nbEquipes - 1 - i;
+            // on récupère le n° du joueur selon l’algo round-robin
+            var idJoueur = roundRobinEquipes[i];
+            // on récupère le n° de l’adversaire selon l’algo round-robin
+            var idAdversaire = roundRobinEquipes[nbEquipes - 1 - i];
             // on récupère le résultat
-            var result = unserialize("resultat" + [roundRobinEquipes[i] + "," + roundRobinEquipes[idAdversaire]]).split("-"); // fetch match
+            var result = unserialize("resultat" + [idJoueur + "," + idAdversaire]).split("-"); // fetch match
             result[0] = parseInt(result[0]);
             result[1] = parseInt(result[1]);
             // problème avec le résultat du match récupéré, on boucle
@@ -44,41 +46,41 @@ function afficherClassement(nbEquipes) {
             // on calcule la différence de but
             var diff = result[0]-result[1];
             // on répercute les buts marqués en encaissés
-            infoEquipes[i][6] += result[0];
-            infoEquipes[i][7] += result[1];
+            infoEquipes[idJoueur][6] += result[0];
+            infoEquipes[idJoueur][7] += result[1];
             infoEquipes[idAdversaire][6] += result[1];
             infoEquipes[idAdversaire][7] += result[0];
 
             // victoire de A sur B, bonus offensif
             if(diff >= 3) {
-                infoEquipes[i][1] += 4;
-                infoEquipes[i][2]++;
+                infoEquipes[idJoueur][1] += 4;
+                infoEquipes[idJoueur][2]++;
                 infoEquipes[idAdversaire][5]++;
             }
             // victoire de A sur B
             else if(diff >= 1) {
-                infoEquipes[i][1] += 3;
-                infoEquipes[i][3]++;
+                infoEquipes[idJoueur][1] += 3;
+                infoEquipes[idJoueur][3]++;
                 infoEquipes[idAdversaire][5]++;
             }
             // match nul
             else if(diff == 0) {
-                infoEquipes[i][1]++;
+                infoEquipes[idJoueur][1]++;
                 infoEquipes[idAdversaire][1]++;
-                infoEquipes[i][4]++;
+                infoEquipes[idJoueur][4]++;
                 infoEquipes[idAdversaire][4]++;
-            }
-            // victoire de B sur A
-            else if(diff <= -1) {
-                infoEquipes[idAdversaire][1] += 3;
-                infoEquipes[idAdversaire][3]++;
-                infoEquipes[i][5]++;
             }
             // victoire de B sur A, bonus offensif
             else if(diff <= -3) {
                 infoEquipes[idAdversaire][1] += 4;
                 infoEquipes[idAdversaire][2]++;
-                infoEquipes[i][5]++;
+                infoEquipes[idJoueur][5]++;
+            }
+            // victoire de B sur A
+            else if(diff <= -1) {
+                infoEquipes[idAdversaire][1] += 3;
+                infoEquipes[idAdversaire][3]++;
+                infoEquipes[idJoueur][5]++;
             }
         }
         // application de l’aglo round-robin
