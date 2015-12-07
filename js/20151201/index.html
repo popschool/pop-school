@@ -6,9 +6,10 @@
         // Liste des élèves
         var arr = ["BULTEZ Jordan", "BRUCHET Daniel", "CAPRON Axel", "CAUVEZ Thimoty", "DELISSE Manon", "DELPIERRE Michel", "FLORE Antoine", "FONTAINE François", "GIACCO Raphael", "GROUX Baptiste", "HURBAIN Jessy", "MACIEJEWSKI Jessica", "MARTINS Julie","MATEYAK Paul", "MONSERGENT François", "POURRIOT Quentin", "PROVO Kilian", "SCRUFARI Pietro", "TOMCZAK Kévin", "TOURNEUR Tristan", "VERGNE Victor", "VINCENT Simon", "ZAREMBA Victor", "LI Jin Hao"
         ];
+        localStorage.setItem("arr",JSON.stringify(arr));
         // Variables utilisées pour le numéro tiré et pour garder le résultat
         var numeroTire;
-        var ancienNumero;
+        var ancienNumero = 0;
 
         // Fonction qui remplit la liste des élèves
         function remplirListe() {
@@ -32,10 +33,10 @@
             }
             // on affiche le nom
             document.getElementById("winner").innerHTML = arr[numeroTire];
-            // Couleur de fond rouge pour l’élève tiré
-            document.getElementById("li-" + numeroTire).style += "background: red;";
             // On remet orange à l’élève tiré juste avant
-            document.getElementById("li-" + ancienNumero).style += "background: orange;";
+            document.getElementById("li-" + ancienNumero).style = "background: orange;";
+            // Couleur de fond rouge pour l’élève tiré
+            document.getElementById("li-" + numeroTire).style = "background-color: red;";
             // le numéro a été tiré. On sauvegarde le résultat pour la prochaine fois
             ancienNumero = numeroTire;
         }
