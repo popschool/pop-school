@@ -18,6 +18,19 @@ function generatePage() {
     }
 }
 
+// Vérification de la valeur d’une lettre entrée par l’utilisateur
+function verifier(numeroLettre) {
+    var lettreAController = document.getElementById(numeroLettre).value;
+    // window.alert(lettreAController);
+    // On contrôle si la lettre utilisateur est la même que celle dans le mot
+    if(lettreAController == motADeviner[numeroLettre]) {
+        window.alert("bon");
+    }
+    else {
+        window.alert("mauvais");
+    }
+}
+
 function random(min,max) {
     return Math.floor(Math.random() * (max - min) + min);
 }
