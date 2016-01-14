@@ -1,0 +1,33 @@
+<script>
+function pokemon(name) {
+    this.name = name;
+    this.pointsDeVie = 10;
+
+    this.attaque = function() {
+        var degats = Math.floor(Math.random()*10);
+        return degats;
+    }
+
+}
+
+function fight() {
+    while(psychokwak.pointsDeVie > 0 && bulbizarre.pointsDeVie > 0) {
+        psychokwak.pointsDeVie -= bulbizarre.attaque();
+        bulbizarre.pointsDeVie -= psychokwak.attaque();
+    }
+    if(psychokwak.pointsDeVie < 0 && bulbizarre.pointsDeVie < 0) {
+        alert("match nul");
+    }
+    else if(psychokwak.pointsDeVie < 0) {
+        alert(bulbizarre.name + " gagne");
+    }
+    else {
+        alert(psychokwak.name + " gagne");
+    }
+}
+var psychokwak = new pokemon("Psychokwak");
+var bulbizarre = new pokemon("Bulbizarre");
+alert(psychokwak.name);
+alert(bulbizarre.name);
+</script>
+<button onclick="javascript:fight();">They bitte and fight</button>

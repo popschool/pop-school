@@ -1,0 +1,24 @@
+<script>
+function voiture() {
+    this.couleur = "rouge";
+    this.roule = function() {
+        alert("vroum !");
+    }
+}
+
+var uneVoiture = new voiture();
+alert(uneVoiture.couleur); // Affiche 'rouge'
+uneVoiture.roule(); // Affiche 'vroum !
+function peugeot() {
+    this.logo = "lion";
+}
+function citroen() {
+    this.logo = "chevrons";
+}
+peugeot.prototype = new voiture();
+citroen.prototype = new voiture();
+var maPeugeot = new peugeot();
+var maCitroen = new citroen();
+maPeugeot.roule();
+maCitroen.roule();
+</script>

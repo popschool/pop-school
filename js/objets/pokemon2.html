@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Pokéfight</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+</head>
+<body onload="javascript:fillFields();" style="background-image: url('pokemon2.jpg');">
+<script>
+function pokemon(name) {
+    this.name = name;
+    this.pointsDeVie = 10;
+
+    this.attaque = function() {
+        var degats = Math.floor(Math.random()*10);
+        return degats;
+    }
+
+}
+function pokemonFeu(name) {
+    pokemon.call(this,name);
+    this.type = "Feu";
+    this.attaque = function(type) {
+        var degats = Math.floor(Math.random()*10);
+        if(type == "Terre") {
+            degats *= 2;
+        }
+        return degats;
+    }
+}
+pokemonFeu.prototype = new pokemon();
+
+function pokemonEau(name) {
+    pokemon.call(this,name);
+    this.type = "Eau";
+    this.attaque = function(type) {
+        var degats = Math.floor(Math.random()*10);
+        if(type == "Feu") {
+            degats *= 2;
+        }
+        return degats;
+    }
+}
+pokemonEau.prototype = new pokemon();
+
+function fight() {
+    while(psychokwak.pointsDeVie > 0 && bulbizarre.pointsDeVie > 0) {
+        psychokwak.pointsDeVie -= bulbizarre.attaque();
+        bulbizarre.pointsDeVie -= psychokwak.attaque();
+    }
+    if(psychokwak.pointsDeVie <= 0 && bulbizarre.pointsDeVie < 0) {
+        alert("match nul");
+    }
+    else if(psychokwak.pointsDeVie <= 0) {
+        alert(bulbizarre.name + " gagne");
+    }
+    else {
+        alert(psychokwak.name + " gagne");
+    }
+}
+function fillFields() {
+    document.getElementById("pokemon1").innerHTML = psychokwak.name;
+    document.getElementById("pokemon2").innerHTML = bulbizarre.name;
+}
+var psychokwak = new pokemonEau("Psychokwak");
+var bulbizarre = new pokemon("Bulbizarre");
+</script>
+<div class="col-md-12 panel panel-default">
+    <h1><span class="label label-danger" id="pokemon1"></span> VS <span class="label label-success" id="pokemon2"></span></h1>
+</div>
+<div class="col-md-2">
+    <button class="btn btn-primary" onclick="javascript:fight();">They bitte and fight</button>
+</div>
+</body>
+</html>
