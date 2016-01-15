@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>IMC</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script>
+        // fonction maison pour créer des exceptions (parce ce que cet
+        // abruti de JS ne le fait pas tout seul)
+        function UserException(message) {
+            this.message = message;
+            this.name = "UserException";
+        }
+        function calculIMC() {
+            try {
+                // on récupère la taille, on génère une exception si la taille est nulle
+                var taille = document.getElementById("taille").value;
+                if (taille == 0) {
+                    throw new UserException("la taille ne doit pas être nulle");
+                }
+                // on récupère la poids, on génère une exception si la poids est nul
+                var poids = document.getElementById("poids").value;
+                if (poids == 0) {
+                    throw new UserException("le poids ne doit pas être nul");
+                }
+                // on calcule l’IMC, on l’arrondit à deux chiffres après la virgule
+                var imc = (poids / (taille * taille)).toFixed(2);
+                // affichage du résultat
+                if (imc < 16 || imc > 35) {
+                    document.getElementById("reponse").innerHTML =
+                        "Votre IMC est de " + imc +
+                        " et vous êtes en danger "
+                    document.getElementById("reponse").className = "alert alert-danger";
+                }
+                else if (imc < 18 || imc > 25) {
+                    document.getElementById("reponse").innerHTML =
+                        "Votre IMC est de " + imc +
+                        " et vous devriez faire attention "
+                    document.getElementById("reponse").className = "alert alert-warning";
+                }
+                else {
+                    document.getElementById("reponse").innerHTML =
+                        "Votre IMC est de " + imc;
+                    document.getElementById("reponse").className = "alert alert-info";
+                }
+           }
+            catch(e) {
+                document.getElementById("reponse").innerHTML = "Erreur : "
+                        + e.message;
+                document.getElementById("reponse").className = "alert alert-warning";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="row">
+        <fieldset class="form-inline form-group">
+            <label for="taille">Taille</label>
+            <input type="numeric" id="taille" class="form-control">
+            <label for="poids">Poids</label>
+            <input type="numeric" id="poids" class="form-control">
+            <button class="btn btn-primary" onclick="calculIMC();">Calculer l’IMC</button>
+        </fieldset>
+    </div>
+    <div class="row">
+        <div id="reponse" class="alert"></div>
+    </div>
+</body>
+</html>
