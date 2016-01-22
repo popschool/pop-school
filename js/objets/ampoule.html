@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+    .style_lampe {
+        float: left;
+        height:100px;
+        padding-top:100px;
+        text-align:center;
+        font-size:10px;
+    }
+    input {
+        display: block;
+    }
+    </style>
+    <script language="JavaScript" type="text/JavaScript">
+    function lampe (pNom) {
+        // PARTIE MODELE ==================================================================
+        this.allumee = false;
+        this.nom = pNom;
+        this.allumer = function () {
+            this.allumee = true;
+            this.afficher();
+        }
+        this.eteindre = function () {
+            this.allumee = false;
+            this.afficher();
+        }
+        this.inverser = function () {
+            this.allumee = !(this.allumee);
+            this.afficher();
+        }
+        // PARTIE VUE  ==================================================================
+        this.afficher = function () {
+            switch (this.allumee) {
+                case true :
+                    this.objetPresentation.style.background = "url('ampoule_allumee.png') no-repeat"
+                    break;
+                case false :
+                    this.objetPresentation.style.background = "url('ampoule_eteinte.png') no-repeat"
+                    break;
+            }
+        }
+        this.affichageInitial = function() {
+            this.objetPresentation.className="style_lampe" ;
+            this.objetPresentation.innerHTML = this.nom;
+            this.afficher();
+            document.body.appendChild (this.objetPresentation);
+        }
+        // PARTIE CONTROLEUR  ==================================================================
+        this.objetPresentation = document.createElement ("div");
+        this.affichageInitial();
+    }
+    var lampes = new Array();
+    function initLampes(nombre) {
+        for(var i=0; i<nombre; i++) {
+            lampes[i] = new lampe("lampe " + i);
+            var bouttons = "\t<input type=\"button\" value=\"allumer " + lampes[i].nom + "\" onclick=\"lampes[" + i + "].allumer()\">\n";
+            bouttons += "\t<input type=\"button\" value=\"eteindre " + lampes[i].nom + "\" onclick=\"lampes[" + i + "].eteindre()\">\n";
+            bouttons += "\t<input type=\"button\" value=\"inverser " + lampes[i].nom + "\" onclick=\"lampes[" + i + "].inverser()\">\n";
+            lampes[i].objetPresentation.innerHTML += bouttons;
+        }
+    }
+    </script>
+</head>
+<body onload="initLampes(15);">
+    <input type="button" value="allumer tout" onclick="lampes.">
+</body>
+</html>
