@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Oh la belle bleue</title>
+    <script src="http://code.jquery.com/jquery-2.2.0.min.js"></script>
+    <style>
+        .bleue {
+            width: 300px;
+            height: 300px;
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div class="bleue" id="monId"></div>
+    <button onclick="$('div').fadeOut();">Cachez moi ça par balise</button>
+    <button onclick="$('.bleue').fadeOut();">Cachez moi ça par class</button>
+    <button onclick="$('#monId').fadeOut();">Cachez moi ça par id</button>
+</body>
+</html>
