@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<link rel="icon" type="image/x-icon" href="img/favicon.ico">
+<title>MRES : d&eacute;bat &eacute;lections r&eacute;gionales 2010</title>
+<script src="inc/prototype-1.6.0.3.js"></script>
+<link rel="stylesheet" href="inc/style_vert.css" type="text/css" media="all" />
+<script language="Javascript">
+var candidates = new Array();
+
+var candidate = Class.create({
+  initialize: function(name, timer) {
+    this.name = name;
+    this.total = timer;
+    this.timer = timer;
+    this.talking = false;
+    this.chronos = null;
+    
+    document.title = this.name + " — MRES : débat élections régionales 2010";
+    document.getElementById("form").style.visibility = "hidden";
+    
+    this.div = document.createElement("div");
+    this.div.id = "candidat";
+    var nom = document.createElement("div");
+    nom.innerHTML = "<h1>" + this.name + "</h1>";
+    this.div.appendChild(nom);
+    this.link = document.createElement("div");
+    this.link.innerHTML = "<a>Start</a>";
+    this.timerShow = document.createElement("div");
+    this.timerShow.id = "timer";
+    this.timerShow.innerHTML = this.timer + "s";
+    this.timerImgCnt = document.createElement("div");
+    this.timerImg = document.createElement("img");
+    this.timerImg.src = "img/img0.png";
+    this.timerImgCnt.appendChild(this.timerImg);
+    this.div.appendChild(this.link);
+    this.div.appendChild(this.timerShow);
+    this.div.appendChild(this.timerImgCnt);
+    document.getElementById("candidats").appendChild(this.div);
+    Event.observe(this.link, 'click', this.click.bind(this));
+  },
+  click: function() {
+    if (this.talking) {
+      // We stop the timer.
+      window.clearTimeout(this.chronos);
+    } else if (this.timer > 0) {
+      this.chronos = window.setTimeout(this.tick.bind(this), 1000);
+    } else {
+      alert("No time left for " + this.name);
+      return;
+    }
+    this.talking = !this.talking;
+    if (this.talking) {
+      this.link.innerHTML = "<a>Stop</a>";
+    } else {
+      this.link.innerHTML = "<a>Start</a>";
+    }
+  },
+  tick: function() {
+    this.chronos = window.setTimeout(this.tick.bind(this), 1000);
+    this.timer--;
+    this.timerShow.innerHTML = this.timer + "s";
+    var perc = 20 - parseInt(20*this.timer/this.total);
+    this.timerImg.src = "img/img" + perc + ".png";
+    if (this.timer == 0) {
+      window.clearTimeout(this.chronos);
+      alert("No time left for " + this.name);
+    }
+  }
+});
+
+function getTimer() {
+  var txt = document.getElementById("default_timer").value;
+  m = txt.match(/^(\d+):(\d\d)$/i);
+  if (m)
+    if (m.length == 3) {
+      var total = parseInt(m[2], 10) + 60*parseInt(m[1], 10);
+      return total;
+    }
+  alert("Chrono non reconnu !");
+  return -1;
+}
+
+function addcandidate(f) {
+  t = getTimer();
+  if (t > 0) {
+    candidates.push(new candidate(f.nom.value, t));
+  }
+}
+
+</script>
+</head>
+<body>
+<div class="effetombre">
+<div class="page">
+<div class="entete">
+  <img src="img/design/bandeau.png" alt="bandeau du site" title="bandeau du site" />
+</div>
+<div>
+<div id="candidats"></div>
+</div>
+<div id="form">
+<h1>Ajouter le candidat</h1>
+Chrono : <input type="text" value="2:30" id="default_timer" /><br />
+<form action="#" onsubmit="addcandidate(this); this.reset(); return false;">
+<label for="nom">Nom :</label> <input type="text" name="nom" id="nom" /><input type="submit" /><br />
+</form>
+</div>
+<div class="pied">
+</div>
+</div>
+</div>
+</body>
+</html>

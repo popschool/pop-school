@@ -1,0 +1,139 @@
+/* Feuille de style en fonction du folio
+
+Quelques couleurs :
+
+- bleu clair : #cdf0f9;
+- bleu encore plus clair (menu droit) : #dbf5fb;
+- bleu soutenu : #4dd3f8;
+- vert clair : #b1d353;
+- vert foncé : #2c9630;
+- rouge : #ec343a;
+- orange foncé : #f45131;
+- jaune orangé : #f7c42c;
+- jaune : #f8b735;
+
+*/
+
+/* Correction des styles HTML par defaut */
+.structure {
+	display: none;
+}
+
+/* Disposition générale */
+.page {
+	position: relative;
+    width: 960px;
+	top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+	text-align: left;
+}
+
+.effetombre {
+position: relative;
+    width: 980px;
+	top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+	background-image: url(../img/design/effetombre.png);
+}
+
+.entete {
+width:960px;
+height:176px;
+background-color:#fff;
+margin-top:0px;
+}
+
+body { 
+background: #f7c42c; 
+margin: 0px; text-align: center; top: 0px;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #333333;
+	font-size: 12px;
+	text-align: justify;
+	line-height: 15px;
+
+}
+
+a { text-decoration: none; color: #ec343a;}
+a:hover { text-decoration: none; color: #fbbb01;}
+
+h2 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #333333;
+	font-size: 15px;
+	margin:0px;
+	font-weight: bold;
+	text-align: left;
+	padding-bottom: 12px;
+}
+
+h3 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+ 	font-size: 14px;
+ 	
+	text-align: left;
+	margin-top : 10 px;
+	margin-bottom : 10px;
+	color: #ec343a;
+	background-image: url(../IMG/design/feuille_li.png);
+	background-repeat: no-repeat;
+	background-position: 0% 80%;
+	padding-left: 18px;
+}
+
+h4 {
+	font-family: arial;
+	color: #55811B;
+	font-size: 16px;
+	margin:0px;
+	font-weight: bold;
+	font-style: italic;
+	text-align: left;
+	padding-bottom: 10px;
+}
+
+/* Barre */
+hr {
+clear: both;
+width: 100%;
+border: 0; /* enleve toute bordure */
+border-bottom: 1px solid #d2f43b; /* une seule bordure (sinon firefox met une bordure en haut ET en bas mais pas IE */
+height: 1px; /* pour IE */
+}
+
+/* Pied */
+.pied {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #5B781B;
+	font-size: 10px;
+	text-align: center;
+	padding: 5px;
+	background-color:#b1d353;
+	background-repeat:repeat-x;
+  	background-position:bottom;
+	background-image: url(../img/design/fondpied.png);
+  	padding-bottom:10px;
+}
+
+
+label {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; color: #666666;}
+textarea {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; color: #333333; margin: 0px; padding: 2px; border: 1px solid #CCCCCC;}
+
+#candidats a {
+	border: solid 1px black;
+	color: white;
+	background: darkgrey;
+	padding: 5px 15px 5px 15px;
+}
+
+#candidat {
+	text-align: center;
+}
+
+#timer {
+	color: #333;
+	font-size: 3em;
+	margin: 1em;	
+}
