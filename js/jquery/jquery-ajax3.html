@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>AJAX, part2</title>
     <script src="http://code.jquery.com/jquery-2.2.0.js"></script>
+    <script src="jquery-barcode.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <style>
         #categories {
@@ -13,6 +14,11 @@
         }
         #products {
             background-color: darksalmon;
+            border-bottom: darkmagenta 2px solid;
+            overflow: hidden;
+        }
+        #product {
+            background-color: Tomato;
             border-bottom: darkmagenta 2px solid;
             overflow: hidden;
         }
@@ -34,18 +40,25 @@
             background-color: white;
             opacity: 0.7;
         }
+        .barcode {
+            width: 100px;
+            height: 30px;
+        }
     </style>
     <script>
     var appUrl = "https://my.pasteque.coop/6/api.php";
     var appLogin = "demo6";
     var appPassword = "demo6";
+    var products;
 
     function chargerProduits(categoryId) {
         $("#products").html("");
         $.getJSON(appUrl, {p:"ProductsAPI",login:appLogin,password:appPassword,action:"getCategory",id:categoryId},
             function(ProductsJSONVar) {
+                products = [];
                 $.each(ProductsJSONVar.content, function(i, product) {
-                     $("#products").append("\n\t<div id=\"" + product.id + "\" class=\"col-md-1 col-lg-1 col-xs-1\"><a></a></div>");
+                    products[i] = product;
+                     $("#products").append("\n\t<div id=\"" + product.id + "\" class=\"col-md-1 col-lg-1 col-xs-1\" onclick=\"afficherProduit('" + i + "');\"><a>\n\t</a></div>");
                      if(product.hasImage == true) {
                         $("#" + product.id).append("\n\t\t<img src='http://my.pasteque.coop/6/api.php?action=getPrd&password=demo6&login=demo6&p=ImagesAPI&id=" + product.id + "' alt='Image de " + product.label + "'>");
                      }
@@ -53,6 +66,15 @@
                 });
             }
         );
+    }
+
+    function afficherProduit(i) {
+            $("#product").html("");
+            $("#product").append("\n\t<h1>" + products[i].label + "</h1>");
+            $("#product").append("\n\t<div><strong>Prix:</strong>" + Math.round(products[i].priceSell) + "€</div>");
+            $("#product").append("\n\t<div class=\"barcode\">" + products[i].barcode + "</div>");
+            $(".barcode").barcode(products[i].barcode,"ean13");
+            $("#product").append("\n\t<div>" + products[i].barcode + "</div>");
     }
 
     $(document).ready(function() {
@@ -72,7 +94,8 @@
 </head>
 <body>
     <h1>Liste des catégories</h1>
-    <div class="row" id="categories"></div>
-    <div class="row" id="products"></div>
+    <div id="categories"></div>
+    <div id="products"></div>
+    <div id="product"><div class="barcode"></div></div>
 </body>
 </html>
