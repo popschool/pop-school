@@ -18,7 +18,7 @@
             overflow: hidden;
         }
         #product {
-            background-color: Tomato;
+            background-color: yellow;
             border-bottom: darkmagenta 2px solid;
             overflow: hidden;
         }
@@ -59,7 +59,7 @@
                 $.each(ProductsJSONVar.content, function(i, product) {
                     products[i] = product;
                      $("#products").append("\n\t<div id=\"" + product.id + "\" class=\"col-md-1 col-lg-1 col-xs-1\" onclick=\"afficherProduit('" + i + "');\"><a>\n\t</a></div>");
-                     if(product.hasImage == true) {
+                     if(product.hasImage) {
                         $("#" + product.id).append("\n\t\t<img src='http://my.pasteque.coop/6/api.php?action=getPrd&password=demo6&login=demo6&p=ImagesAPI&id=" + product.id + "' alt='Image de " + product.label + "'>");
                      }
                         $("#" + product.id).append("\n\t\t<span class='outline'>" + product.label + "</span>");
@@ -80,12 +80,13 @@
     $(document).ready(function() {
         $.getJSON(appUrl, {p:"CategoriesAPI",login:appLogin,password:appPassword,action:"getAll"},
             function(CategoriesJSONVar) {
-                $.each(CategoriesJSONVar.content, function(i, category) {
+                $.each(CategoriesJSONVar.content,
+                    function(i, category) {
                      $("#categories").append("\n\t<div id=\"" + category.id + "\" class=\"col-md-1 col-lg-1 col-xs-1\" onclick=\"chargerProduits('" + category.id + "');\"></div>");
                      if(category.hasImage == true) {
                         $("#" + category.id).append("\n\t\t<img src='http://my.pasteque.coop/6/api.php?action=getCat&password=demo6&login=demo6&p=ImagesAPI&id=" + category.id + "' alt='Image de " + category.label + "'>");
                      }
-                        $("#" + category.id).append("\n\t\t<span class='outline'>" + category.label + "</span>");
+                    $("#" + category.id).append("\n\t\t<span class='outline'>" + category.label + "</span>");
                 });
             }
         );

@@ -20,6 +20,7 @@ while($item = mysql_fetch_array($result)) {
 }
 ?>
 var mots = [<?=$motsBDD?>];
+console.log(mots);
 var motADeviner;
 
 function generatePage() {

@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>AJAX, part2</title>
+    <script src="http://code.jquery.com/jquery-2.2.0.js"></script>
+    <script src="https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/jquery-barcode/jquery.barcode.0.3.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <style>
+        #categories {
+            border-bottom: solid 1px black;
+            background-color: grey;
+            overflow: hidden;
+        }
+        #products {
+            background-color: darksalmon;
+            border-bottom: darkmagenta 2px solid;
+            overflow: hidden;
+        }
+        #product {
+            background-color: Tomato;
+            border-bottom: darkmagenta 2px solid;
+            overflow: hidden;
+        }
+        #categories div, #products div {
+            margin: 5px;
+            height: 85px;
+            background-color: white;
+            border: solid 2px magenta;
+            text-align: center;
+        }
+        #categories img, #products img {
+            width: 50px;
+            text-align: center;
+            display: block;
+            margin-bottom: -1em;
+        }
+        .outline {
+            width: 50px;
+            background-color: white;
+            opacity: 0.7;
+        }
+    </style>
+    <script>
+    var appUrl = "https://my.pasteque.coop/6/api.php";
+    var appLogin = "demo6";
+    var appPassword = "demo6";
+    var products;
+
+    function chargerProduits(categoryId) {
+        $("#products").html("");
+        $.getJSON(appUrl, {p:"ProductsAPI",login:appLogin,password:appPassword,action:"getCategory",id:categoryId},
+            function(ProductsJSONVar) {
+                products = [];
+                $.each(ProductsJSONVar.content, function(i, product) {
+                    products[i] = product;
+                     $("#products").append("\n\t<div id=\"" + product.id + "\" class=\"col-md-1 col-lg-1 col-xs-1\" onclick=\"afficherProduit('" + i + "');\"><a>\n\t</a></div>");
+                     if(product.hasImage == true) {
+                        $("#" + product.id).append("\n\t\t<img src='http://my.pasteque.coop/6/api.php?action=getPrd&password=demo6&login=demo6&p=ImagesAPI&id=" + product.id + "' alt='Image de " + product.label + "'>");
+                     }
+                        $("#" + product.id).append("\n\t\t<span class='outline'>" + product.label + "</span>");
+                });
+            }
+        );
+    }
+
+    function afficherProduit(i) {
+            $("#product").html = "";
+            $("#product").append("\n\t<h1>" + products[i].label + "</h1>");
+            $("#product").append("\n\t<div>" + Math.round(products[i].priceSell) + "€</div>");
+            $("#product").append("\n\t<div>" + products[i].barcode + "</div>");
+    }
+
+    $(document).ready(function() {
+        $.getJSON(appUrl, {p:"CategoriesAPI",login:appLogin,password:appPassword,action:"getAll"},
+            function(CategoriesJSONVar) {
+                $.each(CategoriesJSONVar.content, function(i, category) {
+                     $("#categories").append("\n\t<div id=\"" + category.id + "\" class=\"col-md-1 col-lg-1 col-xs-1\" onclick=\"chargerProduits('" + category.id + "');\"></div>");
+                     if(category.hasImage == true) {
+                        $("#" + category.id).append("\n\t\t<img src='http://my.pasteque.coop/6/api.php?action=getCat&password=demo6&login=demo6&p=ImagesAPI&id=" + category.id + "' alt='Image de " + category.label + "'>");
+                     }
+                        $("#" + category.id).append("\n\t\t<span class='outline'>" + category.label + "</span>");
+                });
+            }
+        );
+    });
+   </script>
+</head>
+<body>
+    <h1>Liste des catégories</h1>
+    <div id="categories"></div>
+    <div id="products"></div>
+    <div id="product"></div>
+</body>
+</html>
